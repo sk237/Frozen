@@ -1,17 +1,16 @@
 package com.example.test.Model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "testDB")
+@Table
+@NoArgsConstructor
 public class TestDB {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,3 +21,4 @@ public class TestDB {
         this.name = name;
     }
 }
+

@@ -3,16 +3,18 @@ package com.example.test.Service.Implementations;
 import com.example.test.Model.TestDB;
 import com.example.test.Repository.TestRepository;
 import com.example.test.Service.TestService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class TestServiceIm implements TestService {
 
-    @Autowired
-    TestRepository testRepository;
+    private final TestRepository testRepository;
 
     @Override
     public TestDB getByName(String name) {
@@ -31,6 +33,7 @@ public class TestServiceIm implements TestService {
 
     @Override
     public void update(TestDB testDb) {
+        log.info("this is update");
         testRepository.save(testDb);
     }
 

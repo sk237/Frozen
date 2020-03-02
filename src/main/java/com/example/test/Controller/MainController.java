@@ -2,19 +2,18 @@ package com.example.test.Controller;
 
 import com.example.test.Model.TestDB;
 import com.example.test.Service.TestService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/test")
 public class MainController {
 
-    @Autowired
-    TestService testService;
+    private final TestService testService;
 
     @GetMapping(value = "/get/{name}")
     public TestDB get(@PathVariable String name) {
-
         return testService.getByName(name);
     }
 
@@ -30,7 +29,7 @@ public class MainController {
         testService.delete(name);
     }
 
-    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/create")
     public TestDB create(@RequestBody TestDB testdb) {
         testService.update(testdb);
         return testdb;

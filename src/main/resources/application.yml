@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+       authentication-database: admin
+       username: Elsa
+       password: root!23
+       database: frozen
+       port: 27017
+       host: localhost

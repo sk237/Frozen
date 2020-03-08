@@ -1,7 +1,9 @@
 package com.example.test;
 
 import com.example.test.Model.TestDB;
+import com.example.test.Model.User;
 import com.example.test.Service.TestService;
+import com.example.test.Service.UserService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,9 @@ class TestApplicationTests {
     @Autowired
     TestService testService;
 
+    @Autowired
+    UserService userService;
+
     private final String Base_Path = "http://localhost:8080/test";
     private RestTemplate restTemplate;
 
@@ -30,12 +35,23 @@ class TestApplicationTests {
     public void setUp() {
 
         testService.deleteAll();
+        userService.deleteAll();
 
         testService.add(new TestDB("Seokjoong"));
         testService.add(new TestDB("Yeji"));
         testService.add(new TestDB("Yeseul"));
 
+        userService.save(User.builder().name("seokjoong").build());
+
         restTemplate = new RestTemplate();
+
+
+    }
+
+    @Test
+    public void mongoDBTest() {
+        User user = userService.findByName("seokjoong");
+        Assert.assertEquals("seokjoong", user.getName());
     }
 
     @Test

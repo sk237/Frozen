@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TestRepository extends JpaRepository<TestDB, Long> {
     TestDB findByName(String name);
-
     void deleteByName(String name);
 }

@@ -5,6 +5,10 @@ import com.example.test.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -12,7 +16,12 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User findByName(String name) {
-        return userRepository.findByName(name);
+        Optional<User> optionalUser = userRepository.findByName(name);
+        return optionalUser.orElseGet(() -> save(User.builder().name(name).build()));
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public User save(User user) {
@@ -23,4 +32,11 @@ public class UserService {
         userRepository.deleteAll();
     }
 
+    public User update(User user) {
+        return userRepository.save(user);
+    }
+
+    public void delete(String name) {
+        userRepository.deleteByName(name);
+    }
 }

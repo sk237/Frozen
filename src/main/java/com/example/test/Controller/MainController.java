@@ -1,9 +1,11 @@
 package com.example.test.Controller;
 
-import com.example.test.Model.TestDB;
-import com.example.test.Service.TestService;
+import com.example.test.Model.User;
+import com.example.test.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -11,29 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/test")
 public class MainController {
 
-    private final TestService testService;
+    private final UserService userService;
 
     @GetMapping(value = "/get/{name}")
-    public TestDB get(@PathVariable String name) {
-        return testService.getByName(name);
+    public User get(@PathVariable String name) {
+        return userService.findByName(name);
     }
 
-    @PostMapping(value = "/update/{name}")
-    public void update(@PathVariable String name) {
-        TestDB testDb = testService.getByName(name);
-        testDb.setName(name);
-        testService.update(testDb);
-    }
-
-    @DeleteMapping(value = "delete/{name}")
-    public void delete(@PathVariable String name) {
-        testService.delete(name);
-    }
-
-    @PostMapping(value = "/create")
-    public TestDB create(@RequestBody TestDB testdb) {
-        testService.update(testdb);
-        return testdb;
+    @GetMapping(value = "/list")
+    public List<User> showList() {
+        return userService.findAll();
     }
 
 }

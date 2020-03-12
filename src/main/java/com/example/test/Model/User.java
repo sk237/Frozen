@@ -1,16 +1,21 @@
 package com.example.test.Model;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import javax.persistence.Id;
 
 @Document
 @Builder
-@Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
+
     @Id
     String id;
     String name;
+
+    public User(String name) {
+        this.name = name;
+    }
 }
